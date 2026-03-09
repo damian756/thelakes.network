@@ -31,23 +31,41 @@
 
     /* ── HERO ───────────────────────────────────────────────────── */
     .hero {
-      background: linear-gradient(160deg, #0f1f0f 0%, #1a3020 50%, #0f2820 100%);
+      background: #0f1f0f;
       color: var(--white);
       padding: 5rem 0 6rem;
       position: relative;
       overflow: hidden;
     }
-    .hero::before {
-      content: '';
+    .hero-photo {
       position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at 70% 50%, rgba(34,197,94,0.07) 0%, transparent 60%),
-                  radial-gradient(ellipse at 20% 80%, rgba(196,120,42,0.05) 0%, transparent 50%);
+      right: 0;
+      top: 0;
+      width: 52%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+    .hero-photo-fade {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 58%;
+      height: 100%;
+      background: linear-gradient(to right, #0f1f0f 0%, #0f1f0f 15%, rgba(15,31,15,0.85) 35%, rgba(15,31,15,0.3) 60%, transparent 100%);
       pointer-events: none;
+      z-index: 1;
     }
     .hero-inner {
       position: relative;
-      max-width: 780px;
+      z-index: 2;
+      max-width: 560px;
+    }
+    @media (max-width: 768px) {
+      .hero-photo { width: 100%; opacity: 0.25; }
+      .hero-photo-fade { width: 100%; background: linear-gradient(to bottom, rgba(15,31,15,0.6) 0%, rgba(15,31,15,0.85) 100%); }
+      .hero-inner { max-width: 100%; }
     }
     .hero-tag {
       display: inline-flex;
@@ -437,6 +455,8 @@
 
   <!-- ── HERO ── -->
   <header class="hero">
+    <img class="hero-photo" src="lake-district.jpg" alt="Lake District tarn and woodland">
+    <div class="hero-photo-fade"></div>
     <div class="container">
       <div class="hero-inner">
         <p class="hero-tag"><span></span> Independent Publishing Network</p>
