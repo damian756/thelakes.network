@@ -7,233 +7,626 @@
   <meta name="description" content="Independent editorial guides to the Lake District. The Lakes Guide, The Lakes Wildlife, and Hike The Lakes. Built by Churchtown Media.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --slate: #2d3748;
-      --slate-dark: #1a202c;
-      --teal: #0d9488;
-      --teal-light: #14b8a6;
-      --mist: #f7fafc;
-      --white: #ffffff;
+      --fell:    #1a2e1a;
+      --slate:   #2d3a2d;
+      --tarn:    #1a6b4a;
+      --tarn-light: #22c55e;
+      --amber:   #c4782a;
+      --mist:    #f4f7f2;
+      --white:   #ffffff;
+      --text:    #1a2e1a;
+      --mid:     #4a5e4a;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Inter', system-ui, sans-serif;
       background: var(--mist);
-      color: var(--slate-dark);
-      line-height: 1.6;
+      color: var(--text);
+      line-height: 1.65;
     }
     .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
-    header {
-      background: linear-gradient(135deg, var(--slate-dark) 0%, var(--slate) 100%);
+
+    /* ── HERO ───────────────────────────────────────────────────── */
+    .hero {
+      background: linear-gradient(160deg, #0f1f0f 0%, #1a3020 50%, #0f2820 100%);
       color: var(--white);
-      padding: 3rem 0 4rem;
-      text-align: center;
+      padding: 5rem 0 6rem;
+      position: relative;
+      overflow: hidden;
     }
-    header h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.25rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 70% 50%, rgba(34,197,94,0.07) 0%, transparent 60%),
+                  radial-gradient(ellipse at 20% 80%, rgba(196,120,42,0.05) 0%, transparent 50%);
+      pointer-events: none;
     }
-    header p {
-      font-size: 1.125rem;
-      opacity: 0.9;
-      max-width: 540px;
-      margin: 0 auto 1rem;
+    .hero-inner {
+      position: relative;
+      max-width: 780px;
     }
-    .coords {
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
       font-size: 0.75rem;
-      opacity: 0.6;
-      letter-spacing: 0.05em;
-    }
-    section { padding: 3rem 0; }
-    section h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.5rem;
-      color: var(--slate-dark);
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--tarn-light);
       margin-bottom: 1.5rem;
+    }
+    .hero-tag span {
+      display: inline-block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--tarn-light);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1.25rem;
+      color: var(--white);
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--tarn-light);
+    }
+    .hero-lead {
+      font-size: 1.125rem;
+      color: rgba(255,255,255,0.75);
+      max-width: 600px;
+      margin-bottom: 2rem;
+      line-height: 1.7;
+    }
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--tarn-light);
+      color: var(--fell);
+      font-weight: 700;
+      font-size: 0.9375rem;
+      padding: 0.875rem 1.75rem;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .hero-cta:hover { background: #4ade80; transform: translateY(-1px); }
+    .coords {
+      margin-top: 3rem;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.08em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ── STATS BAR ──────────────────────────────────────────────── */
+    .stats-bar {
+      background: var(--fell);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .stats-inner {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0;
+    }
+    .stat {
+      padding: 1.25rem 2.5rem;
       text-align: center;
+      border-right: 1px solid rgba(255,255,255,0.07);
+      flex: 1;
+      min-width: 140px;
+    }
+    .stat:last-child { border-right: none; }
+    .stat-num {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--tarn-light);
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+    .stat-label {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    /* ── PURPOSE ────────────────────────────────────────────────── */
+    .purpose {
+      background: var(--white);
+      padding: 5rem 0;
+    }
+    .purpose-inner {
+      max-width: 780px;
+    }
+    .section-tag {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--tarn);
+      margin-bottom: 1rem;
+    }
+    .purpose h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 700;
+      color: var(--fell);
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+    .purpose p {
+      font-size: 1.0625rem;
+      color: var(--mid);
+      margin-bottom: 1rem;
+      line-height: 1.75;
+    }
+    .purpose p:last-child { margin-bottom: 0; }
+    .purpose strong { color: var(--fell); font-weight: 600; }
+
+    /* ── NETWORK CARDS ──────────────────────────────────────────── */
+    .network {
+      background: var(--mist);
+      padding: 5rem 0;
+    }
+    .network-header {
+      margin-bottom: 3rem;
+    }
+    .network-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 700;
+      color: var(--fell);
+      margin-top: 0.75rem;
+    }
+    .network-sub {
+      color: var(--mid);
+      font-size: 0.9375rem;
+      margin-top: 0.5rem;
     }
     .cards {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
-      margin-top: 2rem;
+      gap: 1.25rem;
     }
     .card {
       background: var(--white);
-      border: 1px solid #e2e8f0;
-      border-radius: 12px;
-      padding: 1.5rem;
-      transition: box-shadow 0.2s, border-color 0.2s;
+      border: 1px solid #dde8dd;
+      border-radius: 16px;
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow 0.2s, border-color 0.2s, transform 0.15s;
     }
     .card:hover {
-      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-      border-color: var(--teal);
+      box-shadow: 0 8px 32px rgba(26,46,26,0.1);
+      border-color: var(--tarn);
+      transform: translateY(-2px);
+    }
+    .card-num {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--tarn);
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+      opacity: 0.7;
+    }
+    .card-emoji {
+      font-size: 2rem;
+      line-height: 1;
+      margin-bottom: 0.75rem;
     }
     .card h3 {
-      font-size: 1.125rem;
-      color: var(--teal);
-      margin-bottom: 0.5rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--fell);
+      margin-bottom: 0.25rem;
+    }
+    .card-domain {
+      font-size: 0.8125rem;
+      color: var(--tarn);
+      font-weight: 600;
+      margin-bottom: 0.875rem;
     }
     .card p {
       font-size: 0.9375rem;
-      color: var(--slate);
+      color: var(--mid);
+      line-height: 1.65;
+      margin-bottom: 1.25rem;
+      flex: 1;
+    }
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.375rem;
+      margin-bottom: 1.25rem;
+    }
+    .tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--tarn);
+      background: #e8f5e8;
+      border-radius: 50px;
+      padding: 0.2rem 0.65rem;
+    }
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--fell);
+      text-decoration: none;
+      border-top: 1px solid #dde8dd;
+      padding-top: 1.125rem;
+      transition: color 0.15s;
+    }
+    .card-link:hover { color: var(--tarn); }
+    .card-link::after { content: '↗'; }
+
+    /* ── VALUES ─────────────────────────────────────────────────── */
+    .values {
+      background: var(--fell);
+      color: var(--white);
+      padding: 5rem 0;
+    }
+    .values-header {
+      margin-bottom: 3rem;
+    }
+    .values-header .section-tag { color: var(--tarn-light); }
+    .values-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 700;
+      color: var(--white);
+      margin-top: 0.75rem;
+    }
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+    }
+    .value {
+      border-top: 2px solid var(--tarn);
+      padding-top: 1.25rem;
+    }
+    .value-num {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--tarn-light);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .value h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.125rem;
+      color: var(--white);
+      margin-bottom: 0.625rem;
+    }
+    .value p {
+      font-size: 0.9375rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.65;
+    }
+
+    /* ── WORK WITH US ───────────────────────────────────────────── */
+    .work {
+      background: var(--white);
+      padding: 5rem 0;
+      border-top: 1px solid #dde8dd;
+    }
+    .work-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    @media (max-width: 700px) {
+      .work-inner { grid-template-columns: 1fr; gap: 3rem; }
+    }
+    .work-text h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 700;
+      color: var(--fell);
+      margin-top: 0.75rem;
       margin-bottom: 1rem;
     }
-    .card a {
+    .work-text p {
+      font-size: 1rem;
+      color: var(--mid);
+      line-height: 1.75;
+      margin-bottom: 1.5rem;
+    }
+    .work-email {
       display: inline-block;
-      font-size: 0.875rem;
-      font-weight: 600;
-      color: var(--teal);
+      font-size: 1.0625rem;
+      font-weight: 700;
+      color: var(--tarn);
       text-decoration: none;
+      border-bottom: 2px solid var(--tarn);
+      padding-bottom: 0.125rem;
+      transition: color 0.15s;
     }
-    .card a:hover { text-decoration: underline; }
-    .values {
-      background: var(--slate-dark);
-      color: var(--white);
-      padding: 3rem 0;
-    }
-    .values h2 { color: var(--white); }
-    .values ul {
-      list-style: none;
-      max-width: 600px;
-      margin: 1.5rem auto 0;
-    }
-    .values li {
-      padding: 0.5rem 0;
-      padding-left: 1.5rem;
-      position: relative;
-    }
-    .values li::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0.9rem;
-      width: 6px;
-      height: 6px;
-      background: var(--teal-light);
-      border-radius: 50%;
-    }
-    .contact-section { background: var(--white); border-top: 1px solid #e2e8f0; }
-    .contact-section h2 { margin-bottom: 1rem; }
+    .work-email:hover { color: var(--fell); border-color: var(--fell); }
     form {
-      max-width: 500px;
-      margin: 0 auto;
       display: flex;
       flex-direction: column;
       gap: 1rem;
     }
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
     form label {
-      font-size: 0.875rem;
-      font-weight: 500;
-      color: var(--slate);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--fell);
     }
     form input, form select, form textarea {
-      padding: 0.75rem;
-      border: 1px solid #cbd5e0;
-      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      border: 1px solid #c8d8c8;
+      border-radius: 10px;
       font-family: inherit;
-      font-size: 1rem;
+      font-size: 0.9375rem;
+      color: var(--text);
+      background: var(--mist);
+      transition: border-color 0.15s, box-shadow 0.15s;
+      outline: none;
+    }
+    form input:focus, form select:focus, form textarea:focus {
+      border-color: var(--tarn);
+      box-shadow: 0 0 0 3px rgba(26,107,74,0.1);
     }
     form textarea { min-height: 120px; resize: vertical; }
     form button {
-      background: var(--teal);
+      background: var(--tarn);
       color: var(--white);
       border: none;
       padding: 0.875rem 1.5rem;
-      font-size: 1rem;
-      font-weight: 600;
-      border-radius: 8px;
+      font-size: 0.9375rem;
+      font-weight: 700;
+      border-radius: 10px;
       cursor: pointer;
+      transition: background 0.2s;
+      letter-spacing: 0.01em;
     }
-    form button:hover { background: #0f766e; }
+    form button:hover { background: #145e3a; }
+
+    /* ── FOOTER ─────────────────────────────────────────────────── */
     footer {
-      background: var(--slate);
-      color: var(--white);
-      padding: 1.5rem 0;
+      background: var(--fell);
+      color: rgba(255,255,255,0.5);
+      padding: 1.75rem 0;
       text-align: center;
       font-size: 0.875rem;
-      opacity: 0.9;
     }
-    footer a { color: var(--teal-light); text-decoration: none; }
+    footer a { color: var(--tarn-light); text-decoration: none; }
     footer a:hover { text-decoration: underline; }
+
+    /* ── UTILS ──────────────────────────────────────────────────── */
+    @media (max-width: 640px) {
+      .stat { padding: 1rem 1.25rem; }
+      .stat-num { font-size: 1.375rem; }
+    }
   </style>
 </head>
 <body>
-  <header>
+
+  <!-- ── HERO ── -->
+  <header class="hero">
     <div class="container">
-      <h1>The Lakes Network</h1>
-      <p>Three guides. One landscape. Properly covered.</p>
-      <p class="coords">54.4609° N, 3.0886° W</p>
+      <div class="hero-inner">
+        <p class="hero-tag"><span></span> Independent Publishing Network</p>
+        <h1>Three guides.<br><em>One landscape.</em><br>Properly covered.</h1>
+        <p class="hero-lead">The Lake District gets millions of visitors a year. Online, it is covered by generic aggregators, outdated directories, and tourist board content written for nobody in particular. We are building something better.</p>
+        <a href="#network" class="hero-cta">Explore the Network</a>
+        <p class="coords">54.4609° N, 3.0886° W</p>
+      </div>
     </div>
   </header>
 
-  <section>
+  <!-- ── STATS BAR ── -->
+  <div class="stats-bar">
     <div class="container">
-      <h2>Independent guides to the Lake District</h2>
-      <p style="text-align: center; max-width: 600px; margin: 0 auto;">No tourist board funding. No council budget. Just editorial guides built by someone who walks the fells, watches the wildlife, and actually uses the places we write about.</p>
+      <div class="stats-inner">
+        <div class="stat">
+          <span class="stat-num">3</span>
+          <span class="stat-label">Independent Guides</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">214</span>
+          <span class="stat-label">Wainwright Fells</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">160+</span>
+          <span class="stat-label">Wildlife Species</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">20</span>
+          <span class="stat-label">Languages on Hike</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PURPOSE ── -->
+  <section class="purpose">
+    <div class="container">
+      <div class="purpose-inner">
+        <p class="section-tag">Our Purpose</p>
+        <h2>The Lake District deserves better than it gets online.</h2>
+        <p>Sixteen lakes. Two hundred and fourteen Wainwright fells. Ospreys returned to breed after a 150-year absence. Red deer rut in Martindale. Red squirrels in Grizedale. One of the most-visited national parks in Europe. And online, almost all of it is covered by the same handful of aggregators, tourist board pages, and TripAdvisor results that have not materially changed in a decade.</p>
+        <p>The Lakes Network exists to change that. Three independent editorial guides, each covering a specific audience, each built with genuine knowledge of the places, the routes, and the wildlife. No tourist board funding. No sponsored editorial. Opinions formed by people who actually walk the fells, watch the birds, and know the difference between a tarn and a mere.</p>
+        <p><strong>We are independent.</strong> Revenue comes from affiliate commissions and featured listings, disclosed clearly. Our editorial independence is not negotiable.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── NETWORK ── -->
+  <section class="network" id="network">
+    <div class="container">
+      <div class="network-header">
+        <p class="section-tag">The Network</p>
+        <h2>Three properties. One geography.</h2>
+        <p class="network-sub">Each site covers a distinct audience. Together they cover the Lake District properly.</p>
+      </div>
       <div class="cards">
+
         <div class="card">
+          <span class="card-num">01</span>
+          <div class="card-emoji">🏔️</div>
           <h3>The Lakes Guide</h3>
-          <p>Visitor guide to the Lake District. Villages, restaurants, accommodation, walks, and everything you need to plan a visit.</p>
-          <a href="https://www.thelakesguide.co.uk" target="_blank" rel="noopener">thelakesguide.co.uk →</a>
+          <p class="card-domain">thelakesguide.co.uk</p>
+          <p>The visitor guide to the Lake District. Villages, restaurants, accommodation, walks, and everything needed to plan a trip. Built for UK day trippers and short-break visitors who want to know what is actually worth their time.</p>
+          <div class="card-tags">
+            <span class="tag">Visitor Guide</span>
+            <span class="tag">Restaurants</span>
+            <span class="tag">Accommodation</span>
+            <span class="tag">Walks</span>
+          </div>
+          <a href="https://www.thelakesguide.co.uk" target="_blank" rel="noopener" class="card-link">thelakesguide.co.uk</a>
         </div>
+
         <div class="card">
+          <span class="card-num">02</span>
+          <div class="card-emoji">🦅</div>
           <h3>The Lakes Wildlife</h3>
-          <p>Wildlife database and nature guides. Birds, mammals, plants, insects. Where to see ospreys, red deer, red squirrels, and more.</p>
-          <a href="https://www.thelakeswildlife.co.uk" target="_blank" rel="noopener">thelakeswildlife.co.uk →</a>
+          <p class="card-domain">thelakeswildlife.co.uk</p>
+          <p>Species database and nature guides for the Lake District. Birds, mammals, plants, insects. Where to see ospreys at Haweswater, red deer in Martindale, red squirrels in Grizedale, and the upland butterflies of the fells. Practical field knowledge, not brochure copy.</p>
+          <div class="card-tags">
+            <span class="tag">Wildlife</span>
+            <span class="tag">Birdwatching</span>
+            <span class="tag">Species Guides</span>
+            <span class="tag">Nature Reserves</span>
+          </div>
+          <a href="https://www.thelakeswildlife.co.uk" target="_blank" rel="noopener" class="card-link">thelakeswildlife.co.uk</a>
         </div>
+
         <div class="card">
+          <span class="card-num">03</span>
+          <div class="card-emoji">🥾</div>
           <h3>Hike The Lakes</h3>
-          <p>The Wainwright fells. Route guides, conditions, and practical advice for walkers. Multilingual for international visitors.</p>
-          <a href="https://www.hikethelakes.com" target="_blank" rel="noopener">hikethelakes.com →</a>
+          <p class="card-domain">hikethelakes.com</p>
+          <p>The Wainwright fells. All 214. Route guides, conditions, practical advice, and what to expect on each summit. Built for the international walking audience that travels specifically to complete the Wainwrights — available in 20 languages including Japanese, German, and Scandinavian.</p>
+          <div class="card-tags">
+            <span class="tag">Wainwrights</span>
+            <span class="tag">Fell Walking</span>
+            <span class="tag">214 Routes</span>
+            <span class="tag">Multilingual</span>
+          </div>
+          <a href="https://www.hikethelakes.com" target="_blank" rel="noopener" class="card-link">hikethelakes.com</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── VALUES ── -->
+  <section class="values">
+    <div class="container">
+      <div class="values-header">
+        <p class="section-tag">What We Stand For</p>
+        <h2>Built differently. On purpose.</h2>
+      </div>
+      <div class="values-grid">
+        <div class="value">
+          <p class="value-num">01</p>
+          <h3>Independent</h3>
+          <p>No tourist board funding. No council budget. No sponsored editorial. Revenue comes from affiliate commissions and featured listings, disclosed clearly on every page. Our opinions belong to us.</p>
+        </div>
+        <div class="value">
+          <p class="value-num">02</p>
+          <h3>Field-tested</h3>
+          <p>Written by someone who walks the fells, watches the ospreys, and knows which pub lets you in with wet boots. Not content farms. Not AI-generated listicles. Knowledge formed by actually being there.</p>
+        </div>
+        <div class="value">
+          <p class="value-num">03</p>
+          <h3>Useful first</h3>
+          <p>Built for the visitor making a decision — which route, where to stay, when the deer rut is on, how to get to Haweswater without a car. Practical first. Atmospheric second.</p>
+        </div>
+        <div class="value">
+          <p class="value-num">04</p>
+          <h3>Ambitious</h3>
+          <p>The Lake District is genuinely world-class. Wainwright completionists from Japan and Germany travel thousands of miles specifically to walk these fells. We are building guides worthy of what is here.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="values">
+  <!-- ── WORK WITH US ── -->
+  <section class="work">
     <div class="container">
-      <h2>What we stand for</h2>
-      <ul>
-        <li>Independent. No tourist board or local authority funding.</li>
-        <li>Revenue from affiliate commissions and featured listings, clearly disclosed.</li>
-        <li>Editorial independence is non-negotiable.</li>
-        <li>Built by Churchtown Media Ltd.</li>
-      </ul>
+      <div class="work-inner">
+        <div class="work-text">
+          <p class="section-tag">Work With the Network</p>
+          <h2>Partner with The Lakes Network.</h2>
+          <p>We work with local businesses, conservation groups, tourism organisations, and partners who share our commitment to the Lake District. Featured listings, partnership opportunities, press enquiries, and advertising, all considered.</p>
+          <p>Or just get in touch directly:</p>
+          <a href="mailto:hello@thelakes.network" class="work-email">hello@thelakes.network</a>
+        </div>
+        <div class="work-form">
+          <form action="contact.php" method="post">
+            <div class="field-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" required placeholder="Your name">
+            </div>
+            <div class="field-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required placeholder="your@email.com">
+            </div>
+            <div class="field-group">
+              <label for="enquiry">Enquiry type</label>
+              <select id="enquiry" name="enquiry">
+                <option value="Featured listing">Featured listing</option>
+                <option value="Partnership opportunity">Partnership opportunity</option>
+                <option value="Press or media">Press or media</option>
+                <option value="Advertising">Advertising</option>
+                <option value="General">General enquiry</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" required placeholder="What would you like to discuss?"></textarea>
+            </div>
+            <button type="submit">Send Enquiry &rarr;</button>
+          </form>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="contact-section">
-    <div class="container">
-      <h2>Get in touch</h2>
-      <form action="contact.php" method="post">
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name" required>
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required>
-        <label for="enquiry">Enquiry type</label>
-        <select id="enquiry" name="enquiry">
-          <option value="Featured listing">Featured listing</option>
-          <option value="Partnership">Partnership</option>
-          <option value="Press">Press</option>
-          <option value="Advertising">Advertising</option>
-          <option value="General">General</option>
-        </select>
-        <label for="message">Message</label>
-        <textarea id="message" name="message" required></textarea>
-        <button type="submit">Send</button>
-      </form>
-    </div>
-  </section>
-
+  <!-- ── FOOTER ── -->
   <footer>
     <div class="container">
-      © 2026 The Lakes Network · Built by <a href="https://churchtownmedia.co.uk" target="_blank" rel="noopener">Churchtown Media</a>
+      &copy; 2026 The Lakes Network &middot; Built by <a href="https://churchtownmedia.co.uk" target="_blank" rel="noopener">Churchtown Media</a>
+      &middot; <a href="https://www.thelakesguide.co.uk" target="_blank" rel="noopener">The Lakes Guide</a>
+      &middot; <a href="https://www.thelakeswildlife.co.uk" target="_blank" rel="noopener">The Lakes Wildlife</a>
+      &middot; <a href="https://www.hikethelakes.com" target="_blank" rel="noopener">Hike The Lakes</a>
     </div>
   </footer>
+
 </body>
 </html>
