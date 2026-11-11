@@ -14,10 +14,10 @@ const FROM_EMAIL = "The Lakes Network <noreply@southportguide.co.uk>";
 const RESEND_URL = "https://api.resend.com/emails";
 
 const ENQUIRY_TYPES = [
-  "Featured listing",
+  "Advertising",
+  "Free listing in The Lakes Guide",
   "Partnership opportunity",
   "Press or media",
-  "Advertising",
   "General enquiry",
 ];
 const DEFAULT_ENQUIRY_TYPE = "General enquiry";

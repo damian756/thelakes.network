@@ -436,6 +436,8 @@
       line-height: 1.75;
       margin-bottom: 1.5rem;
     }
+    .work-text a { color: var(--fell); text-decoration: underline; text-underline-offset: 2px; }
+    .work-text a:hover { color: var(--tarn); }
     .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
     .form-status { font-size: 0.9375rem; line-height: 1.5; padding: 0.75rem 1rem; border-radius: 10px; }
     .form-status.ok { background: #e8f3ec; color: var(--tarn); }
@@ -564,7 +566,7 @@
         <h2>The Lake District deserves better than it gets online.</h2>
         <p>The Lake District is England’s largest national park, home to the country’s highest mountain and its deepest lake, and it had 17.45 million visitors in 2025. Yet much of what is online about it is generic or out of date.</p>
         <p>The Lakes Network is three guides, each for a different reader: people planning a visit, walkers working through the Wainwrights, and people who come for the wildlife. We check practical details against official sources when we write a page and when we revise it.</p>
-        <p>Our income comes from businesses that pay for featured listings and advertising. Paying for a space does not change what we write.</p>
+        <p>Businesses can pay to advertise on the guides, and every advert is labelled. Paying for a space does not change what we write.</p>
       </div>
     </div>
   </section>
@@ -637,7 +639,7 @@
         <div class="value">
           <p class="value-num">01</p>
           <h3>Independent</h3>
-          <p>We are paid by businesses for featured listings and advertising. Paying for a space does not change what we write.</p>
+          <p>Businesses can pay to advertise on the guides, and every advert is labelled. Paying for a space does not change what we write.</p>
         </div>
         <div class="value">
           <p class="value-num">02</p>
@@ -665,7 +667,8 @@
         <div class="work-text">
           <p class="section-tag">Work With the Network</p>
           <h2>Partner with The Lakes Network.</h2>
-          <p>We work with local businesses, tourism organisations, and partners who share our commitment to the Lake District. Featured listings, partnership opportunities, press enquiries, and advertising, all considered.</p>
+          <p>We work with local businesses, tourism organisations and partners across the Lake District: advertising on the three guides, a free listing in The Lakes Guide, partnerships and press enquiries.</p>
+          <p>Advertising options and prices: <a href="https://www.thelakesguide.co.uk/advertise">The Lakes Guide</a>, <a href="https://www.hikethelakes.com/advertise">Hike The Lakes</a> and <a href="https://www.thelakeswildlife.co.uk/advertise">The Lakes Wildlife</a>.</p>
         </div>
         <div class="work-form">
           <form action="/api/contact" method="post" id="contact-form">
@@ -683,10 +686,10 @@
             <div class="field-group">
               <label for="enquiry">Enquiry type</label>
               <select id="enquiry" name="enquiry">
-                <option value="Featured listing">Featured listing</option>
+                <option value="Advertising">Advertising</option>
+                <option value="Free listing in The Lakes Guide">Free listing in The Lakes Guide</option>
                 <option value="Partnership opportunity">Partnership opportunity</option>
                 <option value="Press or media">Press or media</option>
-                <option value="Advertising">Advertising</option>
                 <option value="General enquiry">General enquiry</option>
               </select>
             </div>
