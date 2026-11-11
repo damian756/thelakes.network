@@ -2,6 +2,8 @@
 
 Internal. Work of 11 Nov 2026 on `main`. The site is one static page (`index.html`) served by Vercel, plus one Vercel Function (`api/contact.js`). `docs/` and `tests/` are kept out of the deployment by `.vercelignore`.
 
+**Standing rule (Damian, 11 Nov 2026): traffic first.** His words: "their only goal is to drive traffic, we dont need to focus much on conversion, but just raw numbers. Having high traffic is what will sell the advert space locally". Every choice is judged by visits from search. Titles and descriptions are written for what people search, a live title's main phrase is not traded for a tidier one, and there is no conversion work beyond stage B (no extra calls to action, pop-ups or funnels).
+
 Commits:
 - `748a390` (stage 1, live 17:10 UTC): contact form.
 - `1b8a6e8`: copy on the approved pattern.
@@ -13,6 +15,7 @@ Commits:
 - `618af27`: privacy wording beside the form and in the footer.
 - `088be19`: the full Ahrefs sentence (pushed and live, checked on the page).
 - The advertising wording commit (section "Advertising now"), then this report, updated. Neither changes a privacy sentence.
+- `a1691d6`, `7c66d58` and `a802480`: the SEO pass (section "SEO pass"), then this report, updated.
 
 ## Stage 1: contact form, no email address
 
@@ -172,6 +175,48 @@ Screenshots at 1440, 1024, 768 and 390: `screens/improve-home-1440.jpg`, `-1024`
 - No overflow at 1440, 1024, 768 or 390.
 
 **Push order:** push this after The Lakes Guide, so its /advertise page is live before the network page links to it.
+
+## SEO pass (11 Nov 2026, night)
+
+On top of `abdde67`, not pushed. Live (`088be19`) and local were compared first: the live page, sitemap and robots.txt match the repo.
+
+**Commits.**
+- `a1691d6`, schema. Organization and WebSite now sit in one JSON-LD graph:
+  - `@id` values on the www hosts, and the same `@id`s the three guides and Churchtown Media already use for themselves, so the nodes join up instead of repeating with different data;
+  - the parent on https://www.churchtownmedia.co.uk (the apex answers 307), named "Churchtown Media" with `legalName` "Churchtown Media Ltd", as its own site has them;
+  - a WebSite node, "The Lakes Network", published by Churchtown Media (the footer says "Published by Churchtown Media Ltd"). Google reads WebSite on a home page for the site name it shows in results, so it fits a one-page site. No SearchAction (there is no search), no logo (the only mark is the favicon's L), no ratings.
+- `7c66d58`, footer: the Churchtown Media link on www, its canonical address. The visible text is unchanged.
+- `a802480`, title and description, for what people search:
+  - title "The Lakes Network: Three Guides to the Lake District" (52 characters), was "The Lakes Network: Three Guides. One Landscape.". The brand phrase stays first. The tagline went because no one searches it, and nothing shows the page ranking for anything (see "Traffic");
+  - description "Independent Lake District guides: The Lakes Guide for things to do, Hike The Lakes for the 214 Wainwright fells, and The Lakes Wildlife for birds and nature." (157), was a list of the three names and "Built by Churchtown Media";
+  - og and twitter title and description match. It is true of the page after tonight's advertising wording: the page still calls the guides independent, and Hike The Lakes has a page for each of the 214 fells.
+
+**Checked and right.**
+- **Canonical:** one tag, absolute, https://www.thelakes.network/, the page itself. og:url is the same. og:image and twitter:image are on www and answer 200. `/?sent=1`, `/?error=1` and `/index.html` serve the same page with the clean canonical. No robots meta and no X-Robots-Tag, so index, follow. http://www answers 308 to https.
+- **Schema:** one block, parses, matches the page, implies nothing the network does not have.
+- **Sitemap:** 1 URL, https://www.thelakes.network/, lastmod 2026-11-11 (the day the page last changed, still true after these commits). Served on 127.0.0.1:3114 it answers 200, with no robots meta and a canonical equal to the sitemap URL. `changefreq` and `priority` are left; search engines ignore them.
+- **robots.txt:** `Allow: /` and `Sitemap: https://www.thelakes.network/sitemap.xml`. Nothing is blocked.
+- **Speed:** fonts from the site and preloaded, hero image sized, analytics async. Nothing to fix.
+- No em dash in `index.html`, robots, sitemap or `api/contact.js`. `node --test tests/contact.test.mjs`: 9/9.
+- Not touched: the contact form route, the privacy wording, and no /advertise page of its own.
+
+**For Damian.**
+- **Push order.** Checked at 21:10 and again at 21:18 UTC: https://www.thelakeswildlife.co.uk/advertise answered 404. Hike's answered 200. The Lakes Guide's still showed the page from before stage B (its old description, "List your business on The Lakes Guide. Free and premium listing options..."). `6f3324a` links to all three, so it and everything on top of it should go only once The Lakes Guide's and Wildlife's /advertise are live. The three SEO commits do not depend on `6f3324a` and could be cherry-picked onto `088be19` if you want them live sooner. None has to go before a privacy commit.
+- **Submit:** the home page, https://www.thelakes.network/, and the sitemap https://www.thelakes.network/sitemap.xml, after the push.
+- **Not changed, your call.** The Hike The Lakes card says "Guides to all 214 Wainwright fells: routes, conditions and what to expect on each summit". 193 of those pages say "We have not written a route guide for [fell] yet". A true version: "Guides to the 214 Wainwright fells: heights, grid references and conditions for every fell, and route guides for 21 so far, for walkers working through the list."
+- **Owner settings, as before:** the apex redirect is 307, and 308 would say it is permanent. `/index.html` serves a copy of the page. The canonical covers it; `cleanUrls` in `vercel.json` would redirect it, but that is a Vercel setting, so it is left.
+- **For the guides' own passes:** all three link to https://thelakes.network (the apex, a 307 hop) in their footers and list it, and https://churchtownmedia.co.uk, in their Organization `sameAs`. `sameAs` is meant for the same organisation's other profiles, not sister sites.
+
+## Traffic: what to do next
+
+Ranked by likely visits gained. There is no evidence of visits to rank by: the Ahrefs API answered 403 for thelakes.network, the page has no visit log, and a web search on 11 Nov found no page from thelakes.network (a US search engine, not Google). So the ranking is reasoned, with no numbers.
+
+The page's job is to send people to the three guides. The only search term it can realistically win is its own name ("the lakes network"). "Lake District guides" is dominated by the National Park Authority, Cumbria Tourism and guidebook publishers, and one page on a new domain will not beat them. The guides are where the visits are.
+
+1. **Get it indexed.** Submit the sitemap and request indexing of the home page in Search Console once pushed. Make the apex redirect 308, and point the guides' links at www. This only wins brand searches, but nothing else happens until the page is in the index.
+2. **"Latest from the network" strip** (proposed under "Keeping it fresh"). Three links, one to the newest post on each guide. It helps the guides more than this page: new posts get one more link and are found sooner, and the page changes when the guides do. It needs the guides' feeds and a build step, so it is a change to how the page is made.
+3. **Card links to each guide's main sections**, for example Hike The Lakes' fell list, The Lakes Guide's things to do and The Lakes Wildlife's species. Useful for a visitor who knows what they want, and plain links, not calls to action. The gain is small because each guide already links to those pages from its own menus.
+4. **More pages here: not worth it.** Network pages on Lake District subjects would compete with the guide that covers the same subject, on a domain with no authority. The same writing earns more on the guide. Posts a month on the network page: none.
 
 ## Keeping it fresh
 
