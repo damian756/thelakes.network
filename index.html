@@ -321,6 +321,7 @@
       transition: color 0.15s;
     }
     .card-link:hover { color: var(--tarn); }
+    .card .card-domain { flex: none; }
     .card-link::after { content: '↗'; }
 
     /* ── VALUES ─────────────────────────────────────────────────── */
@@ -457,8 +458,10 @@
       text-align: center;
       font-size: 0.875rem;
     }
-    footer a { color: var(--tarn-light); text-decoration: none; }
+    footer a { color: var(--tarn-light); text-decoration: none; white-space: nowrap; }
     footer a:hover { text-decoration: underline; }
+    .footer-copy { margin: 0 0 0.5rem; }
+    .nowrap { white-space: nowrap; }
 
     /* ── UTILS ──────────────────────────────────────────────────── */
     @media (max-width: 640px) {
@@ -477,7 +480,7 @@
       <div class="hero-inner">
         <p class="hero-tag"><span></span> Independent Publishing Network</p>
         <h1>Three guides.<br><em>One landscape.</em><br>Properly covered.</h1>
-        <p class="hero-lead">The Lake District gets millions of visitors a year. Online, it is covered by generic aggregators, outdated directories, and tourist board content written for nobody in particular. We are building something better.</p>
+        <p class="hero-lead">Independent guides to the Lake District: one for visitors, one for fell walkers working through the Wainwrights, and one for its wildlife.</p>
         <a href="#network" class="hero-cta">Explore the Network</a>
         <p class="coords">54.4609° N, 3.0886° W</p>
       </div>
@@ -497,12 +500,12 @@
           <span class="stat-label">Wainwright Fells</span>
         </div>
         <div class="stat">
-          <span class="stat-num">160+</span>
+          <span class="stat-num">160</span>
           <span class="stat-label">Wildlife Species</span>
         </div>
         <div class="stat">
-          <span class="stat-num">20</span>
-          <span class="stat-label">Languages on Hike</span>
+          <span class="stat-num">2,362 km²</span>
+          <span class="stat-label">Of National Park</span>
         </div>
       </div>
     </div>
@@ -514,9 +517,9 @@
       <div class="purpose-inner">
         <p class="section-tag">Our Purpose</p>
         <h2>The Lake District deserves better than it gets online.</h2>
-        <p>Sixteen lakes. Two hundred and fourteen Wainwright fells. Ospreys returned to breed after a 150-year absence. Red deer rut in Martindale. Red squirrels in Grizedale. One of the most-visited national parks in Europe. And online, almost all of it is covered by the same handful of aggregators, tourist board pages, and TripAdvisor results that have not materially changed in a decade.</p>
-        <p>The Lakes Network exists to change that. Three independent editorial guides, each covering a specific audience, each built with genuine knowledge of the places, the routes, and the wildlife. No tourist board funding. No sponsored editorial. Opinions formed by people who actually walk the fells, watch the birds, and know the difference between a tarn and a mere.</p>
-        <p><strong>We are independent.</strong> Revenue comes from affiliate commissions and featured listings, disclosed clearly. Our editorial independence is not negotiable.</p>
+        <p>The Lake District is England’s largest national park, home to the country’s highest mountain and its deepest lake, and it had 17.45 million visitors in 2025. Yet much of what is online about it is generic or out of date.</p>
+        <p>The Lakes Network is three guides, each for a different reader: people planning a visit, walkers working through the Wainwrights, and people who come for the wildlife. We check practical details against official sources when we write a page and when we revise it.</p>
+        <p>Our income comes from businesses that pay for featured listings and advertising. Paying for a space does not change what we write.</p>
       </div>
     </div>
   </section>
@@ -527,7 +530,7 @@
       <div class="network-header">
         <p class="section-tag">The Network</p>
         <h2>Three properties. One geography.</h2>
-        <p class="network-sub">Each site covers a distinct audience. Together they cover the Lake District properly.</p>
+        <p class="network-sub">Each site covers a distinct audience.</p>
       </div>
       <div class="cards">
 
@@ -536,7 +539,7 @@
           <div class="card-emoji">🏔️</div>
           <h3>The Lakes Guide</h3>
           <p class="card-domain">thelakesguide.co.uk</p>
-          <p>The visitor guide to the Lake District. Villages, restaurants, accommodation, walks, and everything needed to plan a trip. Built for UK day trippers and short-break visitors who want to know what is actually worth their time.</p>
+          <p>A visitor guide to the Lake District: villages, places to eat and stay, walks, events and things to do, for day trips and short breaks.</p>
           <div class="card-tags">
             <span class="tag">Visitor Guide</span>
             <span class="tag">Restaurants</span>
@@ -551,7 +554,7 @@
           <div class="card-emoji">🦅</div>
           <h3>The Lakes Wildlife</h3>
           <p class="card-domain">thelakeswildlife.co.uk</p>
-          <p>Species database and nature guides for the Lake District. Birds, mammals, plants, insects. Where to see ospreys at Haweswater, red deer in Martindale, red squirrels in Grizedale, and the upland butterflies of the fells. Practical field knowledge, not brochure copy.</p>
+          <p>Species and nature guides for the Lake District: birds, mammals, insects and plants, and the reserves and forests where you can look for them.</p>
           <div class="card-tags">
             <span class="tag">Wildlife</span>
             <span class="tag">Birdwatching</span>
@@ -566,12 +569,11 @@
           <div class="card-emoji">🥾</div>
           <h3>Hike The Lakes</h3>
           <p class="card-domain">hikethelakes.com</p>
-          <p>The Wainwright fells. All 214. Route guides, conditions, practical advice, and what to expect on each summit. Built for the international walking audience that travels specifically to complete the Wainwrights.</p>
+          <p>Guides to all 214 Wainwright fells: routes, conditions and what to expect on each summit, for walkers working through the list.</p>
           <div class="card-tags">
             <span class="tag">Wainwrights</span>
             <span class="tag">Fell Walking</span>
-            <span class="tag">214 Routes</span>
-            <span class="tag">Multilingual</span>
+            <span class="tag">214 Fells</span>
           </div>
           <a href="https://www.hikethelakes.com" target="_blank" rel="noopener" class="card-link">hikethelakes.com</a>
         </div>
@@ -584,29 +586,28 @@
   <section class="values">
     <div class="container">
       <div class="values-header">
-        <p class="section-tag">What We Stand For</p>
-        <h2>Built differently. On purpose.</h2>
+        <h2>What we stand for</h2>
       </div>
       <div class="values-grid">
         <div class="value">
           <p class="value-num">01</p>
           <h3>Independent</h3>
-          <p>No tourist board funding. No council budget. No sponsored editorial. Revenue comes from affiliate commissions and featured listings, disclosed clearly on every page. Our opinions belong to us.</p>
+          <p>We are paid by businesses for featured listings and advertising. Paying for a space does not change what we write.</p>
         </div>
         <div class="value">
           <p class="value-num">02</p>
-          <h3>Field-tested</h3>
-          <p>Written by someone who walks the fells, watches the ospreys, and knows which pub lets you in with wet boots. Not content farms. Not AI-generated listicles. Knowledge formed by actually being there.</p>
+          <h3>Checked</h3>
+          <p>We check opening times, parking, prices and access details against official sources when we write a page and when we revise it. If we can’t confirm something, we leave it out.</p>
         </div>
         <div class="value">
           <p class="value-num">03</p>
-          <h3>Useful first</h3>
-          <p>Built for the visitor making a decision: which route, where to stay, when the deer rut is on, how to get to Haweswater without a car. Practical first. Atmospheric second.</p>
+          <h3>Useful</h3>
+          <p>Built for the visitor making a decision: which route, where to stay, when to go, what to expect. Practical first, inspirational second.</p>
         </div>
         <div class="value">
           <p class="value-num">04</p>
-          <h3>Ambitious</h3>
-          <p>The Lake District is genuinely world-class. Wainwright completionists from Japan and Germany travel thousands of miles specifically to walk these fells. We are building guides worthy of what is here.</p>
+          <h3>Focused</h3>
+          <p>Three guides that cover only the Lake District: visiting, fell walking and wildlife.</p>
         </div>
       </div>
     </div>
@@ -659,8 +660,8 @@
   <!-- ── FOOTER ── -->
   <footer>
     <div class="container">
-      &copy; 2026 The Lakes Network &middot; Built by <a href="https://churchtownmedia.co.uk" target="_blank" rel="noopener">Churchtown Media</a>
-      &middot; <a href="https://www.thelakesguide.co.uk" target="_blank" rel="noopener">The Lakes Guide</a>
+      <p class="footer-copy">&copy; 2026 The Lakes Network. Published by <a href="https://churchtownmedia.co.uk" target="_blank" rel="noopener">Churchtown Media Ltd</a> (Company No. 16960442).<br><span class="nowrap">Registered office: Suite RA01, 195-197 Wood Street,</span> <span class="nowrap">London, E17 3NU.</span></p>
+      <a href="https://www.thelakesguide.co.uk" target="_blank" rel="noopener">The Lakes Guide</a>
       &middot; <a href="https://www.thelakeswildlife.co.uk" target="_blank" rel="noopener">The Lakes Wildlife</a>
       &middot; <a href="https://www.hikethelakes.com" target="_blank" rel="noopener">Hike The Lakes</a>
     </div>
