@@ -15,8 +15,8 @@
   <meta property="og:title" content="The Lakes Network: Three Guides. One Landscape.">
   <meta property="og:description" content="Independent editorial guides to the Lake District. The Lakes Guide, The Lakes Wildlife, and Hike The Lakes. Built by Churchtown Media.">
   <meta property="og:image" content="https://www.thelakes.network/lake-district.jpg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
+  <meta property="og:image:width" content="768">
+  <meta property="og:image:height" content="1024">
   <meta property="og:image:alt" content="Lake District tarn and woodland">
   <meta property="og:locale" content="en_GB">
 
@@ -216,7 +216,7 @@
     .purpose-inner {
       max-width: 780px;
     }
-    .section-tag {
+    .section-tag, .purpose p.section-tag, .work-text p.section-tag {
       font-size: 0.75rem;
       font-weight: 700;
       letter-spacing: 0.1em;
@@ -263,7 +263,7 @@
     }
     .cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 1.25rem;
     }
     .card {
@@ -287,7 +287,6 @@
       color: var(--tarn);
       text-transform: uppercase;
       margin-bottom: 0.75rem;
-      opacity: 0.7;
     }
     .card-emoji {
       font-size: 2rem;
@@ -363,7 +362,7 @@
     }
     .values-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(4, 1fr);
       gap: 2rem;
     }
     .value {
@@ -453,7 +452,7 @@
     }
     form input:focus, form select:focus, form textarea:focus {
       border-color: var(--tarn);
-      box-shadow: 0 0 0 3px rgba(26,107,74,0.1);
+      box-shadow: 0 0 0 3px rgba(26,107,74,0.35);
     }
     form textarea { min-height: 120px; resize: vertical; }
     form button {
@@ -482,6 +481,12 @@
     footer a:hover { text-decoration: underline; }
     .footer-copy { margin: 0 0 0.5rem; }
     .nowrap { white-space: nowrap; }
+
+    .stat-num { white-space: nowrap; }
+    @media (max-width: 900px) { .values-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 700px) { .cards { grid-template-columns: 1fr; } }
+    @media (max-width: 520px) { .values-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 400px) { .nowrap { white-space: normal; } }
 
     /* ── UTILS ──────────────────────────────────────────────────── */
     @media (max-width: 640px) {
@@ -556,7 +561,7 @@
 
         <div class="card">
           <span class="card-num">01</span>
-          <div class="card-emoji">🏔️</div>
+          <div class="card-emoji" aria-hidden="true">🏔️</div>
           <h3>The Lakes Guide</h3>
           <p class="card-domain">thelakesguide.co.uk</p>
           <p>A visitor guide to the Lake District: villages, places to eat and stay, walks, events and things to do, for day trips and short breaks.</p>
@@ -571,7 +576,7 @@
 
         <div class="card">
           <span class="card-num">02</span>
-          <div class="card-emoji">🦅</div>
+          <div class="card-emoji" aria-hidden="true">🦅</div>
           <h3>The Lakes Wildlife</h3>
           <p class="card-domain">thelakeswildlife.co.uk</p>
           <p>Species and nature guides for the Lake District: birds, mammals, insects and plants, and the reserves and forests where you can look for them.</p>
@@ -586,7 +591,7 @@
 
         <div class="card">
           <span class="card-num">03</span>
-          <div class="card-emoji">🥾</div>
+          <div class="card-emoji" aria-hidden="true">🥾</div>
           <h3>Hike The Lakes</h3>
           <p class="card-domain">hikethelakes.com</p>
           <p>Guides to all 214 Wainwright fells: routes, conditions and what to expect on each summit, for walkers working through the list.</p>
@@ -627,7 +632,7 @@
         <div class="value">
           <p class="value-num">04</p>
           <h3>Focused</h3>
-          <p>Three guides that cover only the Lake District: visiting, fell walking and wildlife.</p>
+          <p>Three guides that cover the Lake District: visiting, fell walking and wildlife.</p>
         </div>
       </div>
     </div>
@@ -640,7 +645,7 @@
         <div class="work-text">
           <p class="section-tag">Work With the Network</p>
           <h2>Partner with The Lakes Network.</h2>
-          <p>We work with local businesses, conservation groups, tourism organisations, and partners who share our commitment to the Lake District. Featured listings, partnership opportunities, press enquiries, and advertising, all considered.</p>
+          <p>We work with local businesses, tourism organisations, and partners who share our commitment to the Lake District. Featured listings, partnership opportunities, press enquiries, and advertising, all considered.</p>
         </div>
         <div class="work-form">
           <form action="/api/contact" method="post" id="contact-form">

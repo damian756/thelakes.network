@@ -2,4 +2,3 @@ User-agent: *
 Allow: /
 
 Sitemap: https://www.thelakes.network/sitemap.xml
-Host: https://www.thelakes.network
