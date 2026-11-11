@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://thelakes.network/sitemap.xml
-Host: https://thelakes.network
+Sitemap: https://www.thelakes.network/sitemap.xml
+Host: https://www.thelakes.network
