@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Lakes Network — Three Guides. One Landscape.</title>
+  <title>The Lakes Network: Three Guides. One Landscape.</title>
   <meta name="description" content="Independent editorial guides to the Lake District. The Lakes Guide, The Lakes Wildlife, and Hike The Lakes. Built by Churchtown Media.">
   <link rel="canonical" href="https://thelakes.network">
   <script src="https://analytics.ahrefs.com/analytics.js" data-key="Nkrq6vtdz1F10LESgJnw+w" async></script>
@@ -12,7 +12,7 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://thelakes.network">
   <meta property="og:site_name" content="The Lakes Network">
-  <meta property="og:title" content="The Lakes Network — Three Guides. One Landscape.">
+  <meta property="og:title" content="The Lakes Network: Three Guides. One Landscape.">
   <meta property="og:description" content="Independent editorial guides to the Lake District. The Lakes Guide, The Lakes Wildlife, and Hike The Lakes. Built by Churchtown Media.">
   <meta property="og:image" content="https://thelakes.network/lake-district.jpg">
   <meta property="og:image:width" content="1200">
@@ -22,7 +22,7 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="The Lakes Network — Three Guides. One Landscape.">
+  <meta name="twitter:title" content="The Lakes Network: Three Guides. One Landscape.">
   <meta name="twitter:description" content="Independent editorial guides to the Lake District. The Lakes Guide, The Lakes Wildlife, and Hike The Lakes. Built by Churchtown Media.">
   <meta name="twitter:image" content="https://thelakes.network/lake-district.jpg">
 
@@ -398,18 +398,13 @@
       line-height: 1.75;
       margin-bottom: 1.5rem;
     }
-    .work-email {
-      display: inline-block;
-      font-size: 1.0625rem;
-      font-weight: 700;
-      color: var(--tarn);
-      text-decoration: none;
-      border-bottom: 2px solid var(--tarn);
-      padding-bottom: 0.125rem;
-      transition: color 0.15s;
-    }
-    .work-email:hover { color: var(--fell); border-color: var(--fell); }
+    .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    .form-status { font-size: 0.9375rem; line-height: 1.5; padding: 0.75rem 1rem; border-radius: 10px; }
+    .form-status.ok { background: #e8f3ec; color: var(--tarn); }
+    .form-status.err { background: #fbeaea; color: #8a1f1f; }
+    form button:disabled { opacity: 0.6; cursor: default; }
     form {
+      position: relative;
       display: flex;
       flex-direction: column;
       gap: 1rem;
@@ -571,7 +566,7 @@
           <div class="card-emoji">🥾</div>
           <h3>Hike The Lakes</h3>
           <p class="card-domain">hikethelakes.com</p>
-          <p>The Wainwright fells. All 214. Route guides, conditions, practical advice, and what to expect on each summit. Built for the international walking audience that travels specifically to complete the Wainwrights — available in 20 languages including Japanese, German, and Scandinavian.</p>
+          <p>The Wainwright fells. All 214. Route guides, conditions, practical advice, and what to expect on each summit. Built for the international walking audience that travels specifically to complete the Wainwrights.</p>
           <div class="card-tags">
             <span class="tag">Wainwrights</span>
             <span class="tag">Fell Walking</span>
@@ -606,7 +601,7 @@
         <div class="value">
           <p class="value-num">03</p>
           <h3>Useful first</h3>
-          <p>Built for the visitor making a decision — which route, where to stay, when the deer rut is on, how to get to Haweswater without a car. Practical first. Atmospheric second.</p>
+          <p>Built for the visitor making a decision: which route, where to stay, when the deer rut is on, how to get to Haweswater without a car. Practical first. Atmospheric second.</p>
         </div>
         <div class="value">
           <p class="value-num">04</p>
@@ -618,18 +613,19 @@
   </section>
 
   <!-- ── WORK WITH US ── -->
-  <section class="work">
+  <section class="work" id="contact">
     <div class="container">
       <div class="work-inner">
         <div class="work-text">
           <p class="section-tag">Work With the Network</p>
           <h2>Partner with The Lakes Network.</h2>
           <p>We work with local businesses, conservation groups, tourism organisations, and partners who share our commitment to the Lake District. Featured listings, partnership opportunities, press enquiries, and advertising, all considered.</p>
-          <p>Or just get in touch directly:</p>
-          <a href="mailto:hello@thelakes.network" class="work-email">hello@thelakes.network</a>
         </div>
         <div class="work-form">
-          <form action="contact.php" method="post">
+          <form action="/api/contact" method="post" id="contact-form">
+            <div class="hp" aria-hidden="true">
+              <label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+            </div>
             <div class="field-group">
               <label for="name">Name</label>
               <input type="text" id="name" name="name" required placeholder="Your name">
@@ -645,13 +641,14 @@
                 <option value="Partnership opportunity">Partnership opportunity</option>
                 <option value="Press or media">Press or media</option>
                 <option value="Advertising">Advertising</option>
-                <option value="General">General enquiry</option>
+                <option value="General enquiry">General enquiry</option>
               </select>
             </div>
             <div class="field-group">
               <label for="message">Message</label>
               <textarea id="message" name="message" required placeholder="What would you like to discuss?"></textarea>
             </div>
+            <p class="form-status" role="status" hidden></p>
             <button type="submit">Send Enquiry &rarr;</button>
           </form>
         </div>
@@ -669,5 +666,45 @@
     </div>
   </footer>
 
+  <script>
+    (function () {
+      var form = document.getElementById("contact-form");
+      var status = form.querySelector(".form-status");
+      var button = form.querySelector("button[type=submit]");
+      function show(text, ok) {
+        status.textContent = text;
+        status.className = "form-status " + (ok ? "ok" : "err");
+        status.hidden = false;
+      }
+      var q = new URLSearchParams(location.search);
+      if (q.get("sent") === "1") show("Thanks, your message has been sent. We will reply by email.", true);
+      if (q.get("error") === "1") show("Sorry, your message could not be sent. Please check the form and try again.", false);
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        var data = Object.fromEntries(new FormData(form).entries());
+        button.disabled = true;
+        status.hidden = true;
+        fetch("/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        })
+          .then(function (res) {
+            return res.json().catch(function () { return {}; }).then(function (body) {
+              if (res.ok) {
+                form.reset();
+                show("Thanks, your message has been sent. We will reply by email.", true);
+              } else {
+                show(body.error || "Sorry, your message could not be sent. Please try again later.", false);
+              }
+            });
+          })
+          .catch(function () {
+            show("Your message could not be sent. Please check your connection and try again.", false);
+          })
+          .then(function () { button.disabled = false; });
+      });
+    })();
+  </script>
 </body>
 </html>
