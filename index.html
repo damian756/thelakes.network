@@ -31,19 +31,35 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "The Lakes Network",
-    "url": "https://www.thelakes.network/",
-    "description": "Three guides to the Lake District: a visitor guide, a guide to the Wainwright fells, and a wildlife guide.",
-    "parentOrganization": {
-      "@type": "Organization",
-      "name": "Churchtown Media Ltd",
-      "url": "https://churchtownmedia.co.uk"
-    },
-    "subOrganization": [
-      { "@type": "Organization", "name": "The Lakes Guide", "url": "https://www.thelakesguide.co.uk/" },
-      { "@type": "Organization", "name": "Hike The Lakes", "url": "https://www.hikethelakes.com/" },
-      { "@type": "Organization", "name": "The Lakes Wildlife", "url": "https://www.thelakeswildlife.co.uk/" }
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://www.thelakes.network/#organization",
+        "name": "The Lakes Network",
+        "url": "https://www.thelakes.network/",
+        "description": "Three guides to the Lake District: a visitor guide, a guide to the Wainwright fells, and a wildlife guide.",
+        "parentOrganization": {
+          "@type": "Organization",
+          "@id": "https://www.churchtownmedia.co.uk/#organization",
+          "name": "Churchtown Media",
+          "legalName": "Churchtown Media Ltd",
+          "url": "https://www.churchtownmedia.co.uk"
+        },
+        "subOrganization": [
+          { "@type": "Organization", "@id": "https://www.thelakesguide.co.uk/#organization", "name": "The Lakes Guide", "url": "https://www.thelakesguide.co.uk" },
+          { "@type": "Organization", "@id": "https://www.hikethelakes.com/#organization", "name": "Hike The Lakes", "url": "https://www.hikethelakes.com" },
+          { "@type": "Organization", "@id": "https://www.thelakeswildlife.co.uk/#organization", "name": "The Lakes Wildlife", "url": "https://www.thelakeswildlife.co.uk" }
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://www.thelakes.network/#website",
+        "name": "The Lakes Network",
+        "url": "https://www.thelakes.network/",
+        "inLanguage": "en-GB",
+        "about": { "@id": "https://www.thelakes.network/#organization" },
+        "publisher": { "@id": "https://www.churchtownmedia.co.uk/#organization" }
+      }
     ]
   }
   </script>
