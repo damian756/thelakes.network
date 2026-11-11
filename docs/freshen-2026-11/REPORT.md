@@ -7,6 +7,12 @@ Commits:
 - `1b8a6e8`: copy on the approved pattern.
 - `065ae6e`: improvements.
 - `5c4e42f`: review fixes.
+- `9f011ea`: this report, first version.
+- `76180c6`: favicon.
+- `1d645cb` and `3283df9`: fonts served from the site, with their licences.
+- `618af27`: privacy wording beside the form and in the footer.
+- `088be19`: the full Ahrefs sentence (pushed and live, checked on the page).
+- The advertising wording commit (section "Advertising now"), then this report, updated. Neither changes a privacy sentence.
 
 ## Stage 1: contact form, no email address
 
@@ -108,8 +114,9 @@ Commits:
 | 5 | Level grids at every width: cards 3 or 1; values 4, 2 or 1; stat numbers on one line; footer wraps below 400 px (it scrolled sideways at 360 and 320) | 20 min | Done, `065ae6e` and `5c4e42f` |
 | 6 | og:image size declared 1200x630 but the image is 768x1024 | 2 min | Done, `5c4e42f` |
 | 7 | Screenshots in `docs/` would have been deployed | 2 min | Done, `5c4e42f` (`.vercelignore`) |
-| 8 | No privacy notice beside the form, which collects a name, email address and message | 30 min | Proposal to the coordinating chat (wording to Damian first) |
-| 9 | No favicon: `/favicon.ico` is a 404 on every visit | 15 min | Proposal: needs an icon chosen |
+| 8 | No privacy notice beside the form, which collects a name, email address and message | 30 min | Done, `618af27` and `088be19` (wording approved by Damian) |
+| 9 | No favicon: `/favicon.ico` is a 404 on every visit | 15 min | Done, `76180c6`: a plain L in the page's green, SVG with an ICO |
+| 9a | Fonts loaded from Google Fonts (a request to Google on every visit) | 20 min | Done, `1d645cb`: Inter and Playfair Display served from the site as woff2; `3283df9` adds the SIL Open Font License texts beside them |
 | 10 | The apex redirect is 307 (temporary). Making it 308 tells search engines it is permanent | Owner | Vercel domain settings |
 | 11 | No visit counts (Ahrefs only) | Owner | Needs a database URL on the Vercel project |
 | 12 | Emoji icons on the site cards | None | Left, matching the approved Sefton network page; now hidden from screen readers |
@@ -154,10 +161,17 @@ Screenshots at 1440, 1024, 768 and 390: `screens/improve-home-1440.jpg`, `-1024`
 - every field labelled;
 - honeypot hidden from screen readers and keyboard.
 
-## Advertising today (for stage 3)
+## Advertising now (stage 3, approved by Damian)
 
-- There is no advertise page, no slot and no price.
-- The "Work with the network" form offers Featured listing, Partnership opportunity, Press or media, Advertising and General enquiry, and delivers to Damian.
+**Before:** the page said "Our income comes from businesses that pay for featured listings and advertising" and "We are paid by businesses for featured listings and advertising". Neither is true today: no advert has been sold yet, and The Lakes Guide's Pro (the Featured badge) opens later. The form offered a "Featured listing" enquiry, which no site sells.
+
+**Now:**
+- Both lines read: "Businesses can pay to advertise on the guides, and every advert is labelled. Paying for a space does not change what we write."
+- The Work with the Network text names what is on offer: "advertising on the three guides, a free listing in The Lakes Guide, partnerships and press enquiries". It links to each guide's /advertise page, where the options and prices are (the network bundle is £99 a month plus VAT, sold on each guide's page).
+- The form's enquiry types, in the page and in `api/contact.js`, are now Advertising, Free listing in The Lakes Guide, Partnership opportunity, Press or media, and General enquiry. `tests/contact.test.mjs` checks that the two lists match: 9/9.
+- No overflow at 1440, 1024, 768 or 390.
+
+**Push order:** push this after The Lakes Guide, so its /advertise page is live before the network page links to it.
 
 ## Keeping it fresh
 
@@ -172,12 +186,12 @@ The network page has no blog. Its job is to point to the three guides and take e
 
 ## Suggestions left for Damian
 
-- **The privacy line beside the form.** Draft: "We use your name, email address and message only to reply to you; they reach us by email through our email provider, Resend." Plus the Ahrefs sentence used on the other sites: "Ahrefs Web Analytics: page view statistics without cookies. It records the page, referrer, browser, device, language, screen size and approximate location (city level), and counts visitors with a daily pseudonymous identifier that is not kept across days."
-- **A favicon.**
+- **The privacy line beside the form, and a favicon:** both done (see the improvements table).
 - **Vercel settings:**
   - make the apex redirect 308;
   - for visit counts, a database URL and a small function.
-- **One claim to keep true.** "We are paid by businesses for featured listings and advertising" is true while The Lakes Guide sells Pro listings and boosts, and once advertising is on sale. Keep it true when the stage 3 menu goes live.
+- **One claim to keep true.** The page now says only that businesses can pay to advertise and that adverts are labelled. When Pro opens on The Lakes Guide, the line can mention featured listings again.
+- **Price recheck:** look at the advertising prices again in three months (mid-February 2027).
 
 ## Checks run
 
