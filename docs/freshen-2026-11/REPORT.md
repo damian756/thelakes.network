@@ -1,0 +1,189 @@
+# thelakes.network: November 2026 report
+
+Internal. Work of 11 Nov 2026 on `main`. The site is one static page (`index.html`) served by Vercel, plus one Vercel Function (`api/contact.js`). `docs/` and `tests/` are kept out of the deployment by `.vercelignore`.
+
+Commits:
+- `748a390` (stage 1, live 17:10 UTC): contact form.
+- `1b8a6e8`: copy on the approved pattern.
+- `065ae6e`: improvements.
+- `5c4e42f`: review fixes.
+
+## Stage 1: contact form, no email address
+
+**Found.**
+- The form posted to `contact.php`, which Vercel cannot run. A POST answered 405, and a GET downloaded the PHP source, which named hello@thelakes.network. Nothing from the form had ever been delivered.
+- thelakes.network has no MX record and no Resend records.
+
+**Changed (`748a390`).**
+- `api/contact.js`:
+  - Required fields: `name` (max 200), `email` (validated, used as reply-to) and `message` (max 5000).
+  - `enquiry` must be one of Featured listing, Partnership opportunity, Press or media, Advertising or General enquiry. Anything else becomes General enquiry.
+  - A hidden honeypot field, `website`.
+  - Every typed value is escaped.
+- It sends through Resend's HTTP API from "The Lakes Network <noreply@southportguide.co.uk>" (a verified domain) to damian@churchtownmedia.co.uk.
+- If the key is missing or Resend refuses, it answers 502 with a plain message and logs only the error's name and message.
+- The page posts JSON from its own script. Without JavaScript, a plain form post gets a 303 back to the page.
+- Removed:
+  - the printed address;
+  - `contact.php`;
+  - the title and copy em dashes;
+  - the "available in 20 languages" claim (Hike The Lakes routes English only).
+
+**Proven live by the coordinating chat.**
+- A marked test arrived from "The Lakes Network".
+- `/contact.php` answers 403.
+- `/api/contact.js` answers as the function and does not serve its source.
+
+**Test.** `tests/contact.test.mjs`, 9 checks, run with `node --test tests/contact.test.mjs`. It uses a fake fetch, so nothing is sent. Key needed: `RESEND_API_KEY` (added by Damian on 11 Nov).
+
+## Stage 2: what was found and changed (`1b8a6e8`)
+
+**Found, ranked.**
+1. **Claims that were not true or not shown:**
+   - "No sponsored editorial";
+   - "Revenue comes from affiliate commissions and featured listings, disclosed clearly on every page" (the company no longer uses affiliate links);
+   - "Written by someone who walks the fells, watches the ospreys, and knows which pub lets you in with wet boots. Not content farms. Not AI-generated listicles.";
+   - "The Lake District is genuinely world-class";
+   - "Built differently. On purpose."
+2. **Unsourced facts.**
+   - In the purpose paragraph:
+     - "Sixteen lakes";
+     - ospreys "after a 150-year absence";
+     - red deer in Martindale and red squirrels in Grizedale;
+     - "one of the most-visited national parks in Europe".
+
+     The osprey project's own site (ospreywatch.co.uk) carries injected payday-loan text, so it was not used as a source.
+   - In the stats bar:
+     - "20 Languages on Hike" is false;
+     - "160+" species should be exactly 160 (the entries in The Lakes Wildlife's species data: 80 birds, 25 insects, 25 mammals, 30 plants);
+     - "Multilingual" is false;
+     - "214 Routes" is wrong: Hike The Lakes has route guides for 21 fells.
+3. **Layout.**
+   - The Hike The Lakes card text sat lower than the others: `.card p { flex: 1 }` also stretched the domain line.
+   - At 1440 the footer left "3NU." alone on a line, and at 390 it broke "Hike The / Lakes".
+
+**Changed.**
+- **Hero lead:** "Independent guides to the Lake District: one for visitors, one for fell walkers working through the Wainwrights, and one for its wildlife."
+- **Purpose.** Facts from the Lake District National Park Authority's facts and figures page:
+  - England's largest national park;
+  - home to the country's highest mountain and its deepest lake;
+  - 17.45 million visitors in 2025.
+
+  It then says what the three guides are and that practical details are checked against official sources. The money line reads: "Our income comes from businesses that pay for featured listings and advertising. Paying for a space does not change what we write."
+- **Stats:**
+  - 3 Independent Guides;
+  - 214 Wainwright Fells;
+  - 160 Wildlife Species;
+  - 2,362 km² Of National Park (LDNPA).
+- **What we stand for**, on the wording approved for seftoncoast.network:
+  - **Independent:** "We are paid by businesses for featured listings and advertising. Paying for a space does not change what we write."
+  - **Checked:** "We check opening times, parking, prices and access details against official sources when we write a page and when we revise it. If we can't confirm something, we leave it out."
+  - **Useful:** "Built for the visitor making a decision: which route, where to stay, when to go, what to expect. Practical first, inspirational second."
+  - **Focused:** "Three guides that cover the Lake District: visiting, fell walking and wildlife."
+- **Site cards:** rewritten plainly. The Hike tags are now "214 Fells", and "Multilingual" is gone.
+- **Footer:** "© 2026 The Lakes Network. Published by Churchtown Media Ltd (Company No. 16960442). Registered office: Suite RA01, 195-197 Wood Street, London, E17 3NU."
+- **Screenshots:**
+  - `screens/before-home-1440.jpg`, `before-home-390.jpg`;
+  - `after-home-1440.jpg`, `after-home-390.jpg`;
+  - the stage 1 form: `s1-form-1440.jpg` and `s1-form-sent-390.jpg`.
+
+**Sources** (in `sources/`, all accessed 11 Nov 2026):
+- **LDNPA facts and figures**, https://www.lakedistrict.gov.uk/learning/factsandfigures. Used for:
+  - England's largest national park;
+  - its highest mountain and deepest lake;
+  - 2,362 km² (912 square miles);
+  - 17.45 million tourists in 2025.
+- **The Wainwright Society**, https://www.wainwright.org.uk/: the 214 completers register.
+- **The approved Sefton wording**, https://www.seftoncoast.network/: the pattern for "What we stand for".
+- The species count of 160 comes from `C:\Projects\lakes-wildlife\content\species\*.json`.
+
+## Improvements, ranked (Damian, 11 Nov: "feel free to do anything extra that's needed")
+
+| # | Item | Effort | State |
+|---|---|---|---|
+| 1 | Canonical, og:url, og:image, twitter:image, sitemap and robots.txt named https://thelakes.network, which redirects (307) to www. All now name https://www.thelakes.network/ | 10 min | Done, `065ae6e` |
+| 2 | Organization JSON-LD: The Lakes Network, parent Churchtown Media Ltd, its three guides | 10 min | Done, `065ae6e` |
+| 3 | Hero image width, height and fetchpriority (no layout jump, faster largest paint) | 5 min | Done, `065ae6e` |
+| 4 | Contrast: hero coordinates 3.1:1 to 6.2:1; card numbers to full colour; a stronger form focus ring | 10 min | Done, `065ae6e` and `5c4e42f` |
+| 5 | Level grids at every width: cards 3 or 1; values 4, 2 or 1; stat numbers on one line; footer wraps below 400 px (it scrolled sideways at 360 and 320) | 20 min | Done, `065ae6e` and `5c4e42f` |
+| 6 | og:image size declared 1200x630 but the image is 768x1024 | 2 min | Done, `5c4e42f` |
+| 7 | Screenshots in `docs/` would have been deployed | 2 min | Done, `5c4e42f` (`.vercelignore`) |
+| 8 | No privacy notice beside the form, which collects a name, email address and message | 30 min | Proposal to the coordinating chat (wording to Damian first) |
+| 9 | No favicon: `/favicon.ico` is a 404 on every visit | 15 min | Proposal: needs an icon chosen |
+| 10 | The apex redirect is 307 (temporary). Making it 308 tells search engines it is permanent | Owner | Vercel domain settings |
+| 11 | No visit counts (Ahrefs only) | Owner | Needs a database URL on the Vercel project |
+| 12 | Emoji icons on the site cards | None | Left, matching the approved Sefton network page; now hidden from screen readers |
+
+Screenshots at 1440, 1024, 768 and 390: `screens/improve-home-1440.jpg`, `-1024`, `-768` and `-390`. A check at 320, 360, 390, 700, 768, 820, 900, 1000, 1024 and 1440 found no sideways scroll.
+
+## Independent review and what was done
+
+**Range.** The reviewer read `748a390..065ae6e` cold, changed nothing and re-fetched the LDNPA page. Every fact matched:
+- largest national park;
+- highest mountain and deepest lake;
+- 2,362 km²;
+- 214;
+- 17.45 million;
+- 160 unique species entries.
+
+**Findings and what was done (`5c4e42f`).**
+
+| # | Severity | Finding | Done |
+|---|---|---|---|
+| 1 | Must | The footer line forced 364 px, so 360 and 320 px phones scrolled sideways | Wraps below 400 px |
+| 2 | Should | "2,362 km²" broke onto two lines at 700 to 820 px | `white-space: nowrap` |
+| 3 | Should | Values left 3+1 at 772 to 1023 px; cards left 2+1 at 600 to 700 px | Fixed column counts |
+| 4 | Should | `docs/` would deploy, including the withdrawn claims in the before shots | Added to `.vercelignore` |
+| 5 | Should | og:image size wrong | 768x1024 |
+| 6 | Should | "conservation groups" was unsupported | Removed |
+| 7 | Should | Two section labels were overridden to 16 px grey | Selector raised |
+| 8 | Note | Apex 307 | Owner (Vercel) |
+| 9 | Note | Weak focus ring; card numbers at 3.36:1 | Fixed |
+| 10 | Note | Emoji read aloud by screen readers | `aria-hidden` |
+| 11 | Note | "cover only the Lake District" (the wildlife guide includes Leighton Moss, Lancashire) | "cover the Lake District" |
+| 11 | Note | No privacy line beside the form | Proposal |
+| 11 | Note | Non-standard `Host:` line in robots.txt | Removed |
+
+**Checks the reviewer marked met:**
+- facts;
+- claims (after finding 6);
+- no em dash;
+- no address (`node --test` 9/9);
+- JSON-LD valid and true;
+- canonical consistent;
+- every field labelled;
+- honeypot hidden from screen readers and keyboard.
+
+## Advertising today (for stage 3)
+
+- There is no advertise page, no slot and no price.
+- The "Work with the network" form offers Featured listing, Partnership opportunity, Press or media, Advertising and General enquiry, and delivers to Damian.
+
+## Keeping it fresh
+
+The network page has no blog. Its job is to point to the three guides and take enquiries.
+
+**Realistic rhythm:** a check once a quarter:
+- the stats (the species count from The Lakes Wildlife's data, route guides on Hike The Lakes);
+- the LDNPA visitor figure when the next year's figure is published;
+- the year in the footer each January.
+
+**A proposal for later, not built:** a small "Latest from the network" strip of three links, one to the newest post on each guide. It would give the page fresh internal links without new writing. It needs the three sites' feeds and a build step, so it is a change to how the page is made.
+
+## Suggestions left for Damian
+
+- **The privacy line beside the form.** Draft: "We use your name, email address and message only to reply to you; they reach us by email through our email provider, Resend." Plus the Ahrefs sentence used on the other sites: "Ahrefs Web Analytics: page view statistics without cookies. It records the page, referrer, browser, device, language, screen size and approximate location (city level), and counts visitors with a daily pseudonymous identifier that is not kept across days."
+- **A favicon.**
+- **Vercel settings:**
+  - make the apex redirect 308;
+  - for visit counts, a database URL and a small function.
+- **One claim to keep true.** "We are paid by businesses for featured listings and advertising" is true while The Lakes Guide sells Pro listings and boosts, and once advertising is on sale. Keep it true when the stage 3 menu goes live.
+
+## Checks run
+
+- `node --test tests/contact.test.mjs`: 9/9.
+- No em dash in `index.html`, robots, sitemap or `api/contact.js`.
+- JSON-LD parses.
+- Screenshots at 1440, 1024, 768 and 390, checked as tiles.
+- Overflow check from 320 to 1440.
+- There is no package.json, so there is no build, lint or npm audit for this site.
